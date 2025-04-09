@@ -1,5 +1,7 @@
 # mcpo-docker
 
+The source from [alephpiece](https://github.com/alephpiece/mcpo-docker) .
+
 An example Docker image for [mcpo](https://github.com/open-webui/mcpo), a tool that exposes MCP (Model Context Protocol) servers as OpenAPI-compatible HTTP endpoints for [OpenWebUI](https://github.com/open-webui/open-webui).
 
 > Still waiting for the official mcpo docker!
@@ -8,7 +10,7 @@ An example Docker image for [mcpo](https://github.com/open-webui/mcpo), a tool t
 
 ```shell
 # Pull the repo
-git clone https://github.com/alephpiece/mcpo-docker.git
+git clone https://github.com/lkoujiu/mcpo-docker.git
 cd mcpo-docker
 
 # Copy sample files and edit them as you like.
