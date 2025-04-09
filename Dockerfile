@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 LABEL org.opencontainers.image.title="mcpo"
 LABEL org.opencontainers.image.description="Docker image for mcpo (Model Context Protocol OpenAPI Proxy)"
-LABEL org.opencontainers.image.source="https://github.com/alephpiece/mcpo-docker"
+LABEL org.opencontainers.image.source="https://github.com/lkoujiu/mcpo-docker"
 LABEL org.opencontainers.image.licenses="MIT"
 
 # install npx
