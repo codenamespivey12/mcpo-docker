@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+.github
+
+# Docker
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.override.yml.example
+.dockerignore
+
+# Documents
+README.md
+LICENSE
+*.md
+
+# Development and testing
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+.env
+.venv/
+venv/
+ENV/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs and temporary files
+logs/
+*.log
+tmp/ 
