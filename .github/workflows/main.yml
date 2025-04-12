@@ -6,9 +6,9 @@ on:
       - "*.md"
     branches:
       - main
-  workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 5"
+    - cron: "0 0 * * 5" # Every Saturday
+  workflow_dispatch:
 
 jobs:
   push_to_registry:
