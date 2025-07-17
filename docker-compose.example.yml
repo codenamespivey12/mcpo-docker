@@ -7,3 +7,7 @@ services:
       - "8000:8000"
     volumes:
       - ./config.json:/app/config.json
+    environment:
+      - E2B_API_KEY=${E2B_API_KEY}
+      - EXA_API_KEY=${EXA_API_KEY}
+      - TIMEZONE=UTC

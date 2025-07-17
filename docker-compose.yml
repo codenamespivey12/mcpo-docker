@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mcpo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mcpo
+    image: mcpo:latest
+    restart: unless-stopped
+    ports:
+      - "${MCP_PORT:-8000}:8000"
+    volumes:
+      - ${CONFIG_PATH:-./config.json}:/app/config.json
+      - ${LOGS_PATH:-./logs}:/app/logs
+    environment:
+      # Required API keys
+      - E2B_API_KEY=${E2B_API_KEY}
+      - EXA_API_KEY=${EXA_API_KEY}
+      
+      # Configuration options
+      - CONFIG_PATH=/app/config.json
+      - TIMEZONE=${TIMEZONE:-UTC}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      
+      # Resource limits (these will be used by the container's resource management)
+      - CPU_LIMIT=${CPU_LIMIT:-1}
+      - MEMORY_LIMIT=${MEMORY_LIMIT:-1G}
+      - PROCESS_LIMIT=${PROCESS_LIMIT:-10}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - mcp-network
+    deploy:
+      resources:
+        limits:
+          cpus: '${CPU_LIMIT:-1}'
+          memory: ${MEMORY_LIMIT:-1G}
+
+networks:
+  mcp-network:
+    driver: bridge

@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCP Docker Configuration Schema",
+  "description": "Configuration schema for MCP Docker container with support for multiple MCP servers",
+  "type": "object",
+  "required": ["mcpServers"],
+  "properties": {
+    "mcpServers": {
+      "type": "object",
+      "description": "Configuration for MCP servers",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Configuration for a specific MCP server",
+        "required": ["command", "args"],
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "Command to run the MCP server (e.g., 'npx', 'uvx')"
+          },
+          "args": {
+            "type": "array",
+            "description": "Arguments to pass to the command",
+            "items": {
+              "type": "string"
+            }
+          },
+          "env": {
+            "type": "object",
+            "description": "Environment variables for the MCP server",
+            "additionalProperties": {
+              "type": "string",
+              "description": "Environment variable value with support for variable substitution using ${VAR_NAME} syntax"
+            }
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "Whether the MCP server is disabled",
+            "default": false
+          },
+          "autoApprove": {
+            "type": "array",
+            "description": "List of tool names to auto-approve",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "timeout": {
+            "type": "number",
+            "description": "Timeout in seconds for MCP server operations",
+            "default": 60
+          }
+        }
+      }
+    },
+    "proxy": {
+      "type": "object",
+      "description": "Configuration for the MCP proxy server",
+      "properties": {
+        "port": {
+          "type": "number",
+          "description": "Port to listen on",
+          "default": 8000
+        },
+        "host": {
+          "type": "string",
+          "description": "Host to bind to",
+          "default": "0.0.0.0"
+        },
+        "logLevel": {
+          "type": "string",
+          "description": "Log level for the proxy server",
+          "enum": ["error", "warn", "info", "debug", "trace"],
+          "default": "info"
+        }
+      },
+      "default": {
+        "port": 8000,
+        "host": "0.0.0.0",
+        "logLevel": "info"
+      }
+    },
+    "logging": {
+      "type": "object",
+      "description": "Logging configuration",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Log level",
+          "enum": ["error", "warn", "info", "debug", "trace"],
+          "default": "info"
+        },
+        "format": {
+          "type": "string",
+          "description": "Log format",
+          "enum": ["json", "text"],
+          "default": "json"
+        },
+        "output": {
+          "type": "string",
+          "description": "Log output destination",
+          "enum": ["stdout", "file"],
+          "default": "stdout"
+        },
+        "filePath": {
+          "type": "string",
+          "description": "Path to log file if output is 'file'",
+          "default": "/var/log/mcpo/mcpo.log"
+        }
+      },
+      "default": {
+        "level": "info",
+        "format": "json",
+        "output": "stdout"
+      }
+    },
+    "healthCheck": {
+      "type": "object",
+      "description": "Health check configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether health checks are enabled",
+          "default": true
+        },
+        "interval": {
+          "type": "number",
+          "description": "Health check interval in seconds",
+          "default": 30
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Health check timeout in seconds",
+          "default": 10
+        },
+        "retries": {
+          "type": "number",
+          "description": "Number of retries before marking as unhealthy",
+          "default": 3
+        },
+        "startPeriod": {
+          "type": "number",
+          "description": "Start period in seconds before health checks begin",
+          "default": 5
+        }
+      },
+      "default": {
+        "enabled": true,
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3,
+        "startPeriod": 5
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Resource limits configuration",
+      "properties": {
+        "cpuLimit": {
+          "type": "number",
+          "description": "CPU limit in cores",
+          "default": 1
+        },
+        "memoryLimit": {
+          "type": "string",
+          "description": "Memory limit (e.g., '1G', '512M')",
+          "default": "1G"
+        },
+        "processLimit": {
+          "type": "number",
+          "description": "Maximum number of concurrent processes",
+          "default": 10
+        }
+      },
+      "default": {
+        "cpuLimit": 1,
+        "memoryLimit": "1G",
+        "processLimit": 10
+      }
+    }
+  }
+}
