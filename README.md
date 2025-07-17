@@ -40,7 +40,7 @@ This project creates a unified HTTP interface for multiple MCP servers, allowing
    # Call a tool
    curl -X POST http://localhost:8000/memory \
      -H "Content-Type: application/json" \
-     -d '{"tool": "store_memory", "arguments": {"content": "Hello World"}}'
+     -d '{"tool": "create_entities", "arguments": {"entities": [{"name": "Hello_World", "entityType": "greeting", "observations": ["First test entity"]}]}}'
    ```
 
 ### Using Docker
@@ -162,14 +162,19 @@ curl http://localhost:8000/status
 # List memory server tools
 curl http://localhost:8000/memory
 
-# Store a memory
+# Create entities in memory
 curl -X POST http://localhost:8000/memory \
   -H "Content-Type: application/json" \
   -d '{
-    "tool": "store_memory",
+    "tool": "create_entities",
     "arguments": {
-      "content": "Important information to remember",
-      "metadata": {"source": "api", "priority": "high"}
+      "entities": [
+        {
+          "name": "John_Smith",
+          "entityType": "person",
+          "observations": ["Works as a software engineer", "Prefers morning meetings"]
+        }
+      ]
     }
   }'
 
@@ -217,8 +222,8 @@ PROCESS_LIMIT=10
 The default configuration includes several popular MCP servers:
 
 1. **Memory Server** (`@modelcontextprotocol/server-memory`)
-   - Store and retrieve memories
-   - Tools: `store_memory`, `search_memories`, `get_memory`
+   - Knowledge graph-based persistent memory system
+   - Tools: `create_entities`, `create_relations`, `add_observations`, `delete_entities`, `delete_observations`, `delete_relations`, `read_graph`, `search_nodes`, `open_nodes`
 
 2. **Time Server** (`mcp-server-time`)
    - Get current time and date information
