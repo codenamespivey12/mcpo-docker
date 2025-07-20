@@ -31,6 +31,7 @@ WORKDIR /app
 
 # Copy configuration files
 COPY config.example.json /app/config.example.json
+COPY config.production.json /app/config.json
 
 # Install common MCP server dependencies
 RUN npm install -g @modelcontextprotocol/server-sequential-thinking \

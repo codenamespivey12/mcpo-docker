@@ -1,0 +1,115 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "sequential_thinking"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "create_entities",
+        "create_relations",
+        "add_observations",
+        "delete_entities",
+        "delete_observations",
+        "delete_relations",
+        "read_graph",
+        "search_nodes",
+        "open_nodes"
+      ]
+    },
+    "time": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-time",
+        "--local-timezone=${TIMEZONE}"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "get_current_time",
+        "get_timezone_info"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "resolve-library-id",
+        "get-library-docs"
+      ]
+    },
+    "e2b": {
+      "command": "uvx",
+      "args": [
+        "e2b-mcp-server"
+      ],
+      "env": {
+        "E2B_API_KEY": "${E2B_API_KEY}"
+      },
+      "disabled": "${E2B_DISABLED:-true}",
+      "autoApprove": []
+    },
+    "exa": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "exa-mcp-server"
+      ],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      },
+      "disabled": "${EXA_DISABLED:-true}",
+      "autoApprove": [
+        "web_search_exa",
+        "research_paper_search_exa",
+        "company_research_exa",
+        "crawling_exa",
+        "competitor_finder_exa",
+        "linkedin_search_exa",
+        "wikipedia_search_exa",
+        "github_search_exa"
+      ]
+    }
+  },
+  "proxy": {
+    "port": "${PORT:-8000}",
+    "host": "0.0.0.0",
+    "logLevel": "info"
+  },
+  "logging": {
+    "level": "${LOG_LEVEL:-info}",
+    "format": "${LOG_FORMAT:-json}",
+    "output": "stdout"
+  },
+  "healthCheck": {
+    "enabled": true,
+    "interval": 30,
+    "timeout": 10,
+    "retries": 3,
+    "startPeriod": 5
+  },
+  "resources": {
+    "cpuLimit": 1,
+    "memoryLimit": "1G",
+    "processLimit": 10
+  }
+}

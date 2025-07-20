@@ -79,7 +79,7 @@ logger = logging.getLogger("mcp_proxy")
 # Default configuration
 DEFAULT_CONFIG_PATH = os.environ.get("CONFIG_PATH", "/app/config.json")
 DEFAULT_HOST = "0.0.0.0"
-DEFAULT_PORT = 8000
+DEFAULT_PORT = int(os.environ.get("PORT", 8000))
 
 
 class MCPServerManager:
